@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <cstring>
 using namespace std;
-//test3
+//test33
 void strrever(char *s)
 {
     for(int i=0,j=strlen(s)-1;i<j;i++,j--)
