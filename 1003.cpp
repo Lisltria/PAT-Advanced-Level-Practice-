@@ -125,7 +125,7 @@ int Astar(int *rev_D,int min_D,int origin,int destination)
             while(r!=-1)
             {
                 // if(!city_enable[Fstar[r].destination] )
-                // Maybe the shortest paths pass a same city
+                // Maybe the shortest paths pass a same city.
                 if(1)
                 {
                     node next_node;
