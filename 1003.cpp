@@ -123,7 +123,7 @@ int Astar(int *rev_D,int min_D,int origin,int destination)
                 q.push(next_node);
                 city_enable[r]=true;
                 r=Fstar[r].the_last;
-            }
+            }//
         }
         else
         {
