@@ -1,5 +1,6 @@
 #include <iostream>
-#include <stdint.h>
+#include <cstdio>
+#include <cstdint>
 #include <queue>
 using namespace std;
 struct road
@@ -11,30 +12,34 @@ struct road
 };
 struct node
 {
-    int F,G,H,city;
+    int F,G,H,city,team_count;
     friend bool operator < (node a,node b)
     {
         return a.F > b.F;
     } 
 };
 
-road Fstar[100000];
-int Fstar_city[500];
-int city_team_num[500];
+road Fstar[1000000];
+int Fstar_city[501];
+int city_team_num[501];
 int find_path(int origin, int destination,int n_city,int *D);
+int Astar(int *rev_D,int min_D,int origin,int destination);
 
 int main(int argc, char const *argv[])
 {
     /* code */
+    freopen("in.txt","r",stdin);
+    freopen("out.txt","w",stdout);
+
     int N_city,M_road,FROM,TO,road_num=0;
-    int min_distance;
-    int city_distance[500];
+    int min_distance,path_count=0;;
+    int city_distance[501];
     cin>>N_city>>M_road>>FROM>>TO;
     for(int i=0;i<N_city;i++)
     {
         cin>>city_team_num[i];
     }
-    for(int i=0;i<500;i++)
+    for(int i=0;i<501;i++)
     {
         Fstar_city[i]=-1;
     }
@@ -76,6 +81,10 @@ int main(int argc, char const *argv[])
         road_num++;
     }
     min_distance=find_path(TO,FROM,N_city,city_distance);
+    path_count=Astar(city_distance,min_distance,FROM,TO);
+
+    fclose(stdin);
+    fclose(stdout);
     return 0;
 }
 
@@ -83,23 +92,23 @@ int Astar(int *rev_D,int min_D,int origin,int destination)
 {
     priority_queue<node> q;
     node p;
-    int team_count=0;
-    int D[500],last_city[500];
-    bool city_enable[500];
-    for(int i=0;i<500;i++)
+    int path_count=0,max_team_count=0;
+    int D[501];
+    bool city_enable[501];
+    for(int i=0;i<501;i++)
     {
         D[i]=INT32_MAX;
-        last_city[i]=-1;
         city_enable[i]=false;
     }
 
     city_enable[origin]=true;
-    last_city[origin]=-1;
+
     p.G=0;
     p.city=origin;
     p.H=rev_D[origin];
     D[origin]=0;
     p.F=p.G+p.H;
+    p.team_count=city_team_num[origin];
 
     q.push(p);
 
@@ -108,22 +117,48 @@ int Astar(int *rev_D,int min_D,int origin,int destination)
         if(!q.empty())
         {
             node t;
-            t=q.pop();
-            city_enable[t.city]=false;
-
+            t=q.top();
+            q.pop();
+            city_enable[t.city]=false;//unnecessary
             int r;
             r=Fstar_city[t.city];
             while(r!=-1)
             {
-                node next_node;
-                next_node.G=Fstar[r].length+t.G;
-                next_node.H=rev_D[Fstar[r].destination];
-                next_node=Fstar[r].destination;
-                next_node.F=next_node.H+next_node.G;
-                q.push(next_node);
-                city_enable[r]=true;
-                r=Fstar[r].the_last;
-            }//
+                // if(!city_enable[Fstar[r].destination] )
+                // Maybe the shortest paths pass a same city
+                if(1)
+                {
+                    node next_node;
+                    next_node.G=Fstar[r].length+t.G;
+                    next_node.H=rev_D[Fstar[r].destination];
+                    next_node.city=Fstar[r].destination;
+                    next_node.F=next_node.H+next_node.G;
+                    next_node.team_count=t.team_count+city_team_num[Fstar[r].destination];
+                    if(next_node.F<=min_D)
+                    {
+                        q.push(next_node);     
+                        city_enable[r]=true;//unnecessary
+                    }
+                }
+                r=Fstar[r].the_last;       
+            }
+            
+            if(t.city==destination)
+            {
+                if(t.G==min_D)
+                {
+                    if(t.team_count>max_team_count)
+                    {
+                        max_team_count=t.team_count;
+                    }
+                    path_count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            
         }
         else
         {
@@ -131,15 +166,16 @@ int Astar(int *rev_D,int min_D,int origin,int destination)
         }
 
     }
-    return 0;
+    cout<<path_count<<" "<<max_team_count<<endl;
+    return path_count;
 }
 
 int find_path(int origin, int destination,int n_city,int *D)
 {
-    bool enable[500];
+    bool enable[501];
     int city_count=0;
     
-    for(int i=0;i<500;i++)
+    for(int i=0;i<501;i++)
     {
         enable[i]=false;
         D[i]=INT32_MAX;
