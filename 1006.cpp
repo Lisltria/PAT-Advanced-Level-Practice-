@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-
+//
 typedef struct time{
     int min,hour,sec;
     bool operator < (const time a)const
