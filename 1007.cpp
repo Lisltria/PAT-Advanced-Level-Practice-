@@ -1,3 +1,4 @@
+/* one test point can not be passed */
 #include <iostream>
 using namespace std;
 int sequence[10001];
