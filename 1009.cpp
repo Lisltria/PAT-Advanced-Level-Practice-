@@ -6,7 +6,7 @@ using namespace std;
 struct node{
     double coe;
 };
-node poly[1001];
+node poly[3001];
 
 struct node2
 {
@@ -18,7 +18,7 @@ struct node2
 int main(int argc, char const *argv[])
 {
     /* code */
-    for(int i=0;i<=1000;i++)
+    for(int i=0;i<=3000;i++)
     {
         poly[i].coe=0.0;
     }
@@ -48,7 +48,7 @@ int main(int argc, char const *argv[])
 
     bool flag=false;
     int count=0;
-    for(int i=1000;i>=0;i--)
+    for(int i=3000;i>=0;i--)
     {
         if(fabs(poly[i].coe)<0.0001)
         {
@@ -60,7 +60,7 @@ int main(int argc, char const *argv[])
         }
     }
     cout<<count;
-    for(int i=1000;i>=0;i--)
+    for(int i=3000;i>=0;i--)
     {
         if(fabs(poly[i].coe)<0.0001)
         {
