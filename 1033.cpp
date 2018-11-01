@@ -44,10 +44,6 @@ int main()
                 min_from=gas_station[i].distance;
                 min_price=gas_station[i].price;
             }
-            else
-            {
-
-            }
         }
         else
         {

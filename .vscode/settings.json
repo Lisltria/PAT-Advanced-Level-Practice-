@@ -49,7 +49,8 @@
         "fstream": "c",
         "deque": "cpp",
         "queue": "cpp",
-        "climits": "cpp"
+        "climits": "cpp",
+        "map": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled",
     "C_Cpp.errorSquiggles": "Disabled",
