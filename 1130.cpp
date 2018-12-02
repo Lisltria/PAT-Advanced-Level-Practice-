@@ -63,7 +63,7 @@ int main(int argc, char const *argv[])
             whereIsRoot[t.rc] = true;
     }
     
-    for (int i = 1; i < N;i++)
+    for (int i = 1; i <=N;i++)
     {
         if(whereIsRoot[i]==false)
         {
