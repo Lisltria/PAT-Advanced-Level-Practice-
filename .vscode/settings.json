@@ -57,7 +57,8 @@
         "stack": "cpp",
         "xlocmon": "cpp",
         "xloctime": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "unordered_set": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled",
     "C_Cpp.errorSquiggles": "Disabled",
