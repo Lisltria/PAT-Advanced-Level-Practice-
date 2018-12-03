@@ -45,7 +45,7 @@ void makeAnsLeft()
     while(!l.empty())
     {
         int t = l.top();
-         if(node[t][2]!=root)
+         if(t!=root)
             cout << " ";
         cout << node[t][2];
         l.pop();
@@ -58,7 +58,7 @@ void makeAnsRight()
     while(!r.empty())
     {
         int t = r.top();
-        if(node[t][2]!=root)
+        if(t!=root)
             cout << " ";
         cout << node[t][2];
         r.pop();
