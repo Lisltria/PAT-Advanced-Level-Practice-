@@ -74,5 +74,6 @@ int main()
             outflag = true;
         cout << ans[i];
     }
+    cout << endl;
     return 0;
 }
